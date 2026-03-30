@@ -80,3 +80,20 @@ Each run writes:
 - `checkpoints/`
 - `best_model/`
 
+## Citations and References
+
+This repository is based on the following sources:
+
+- Project report: `Midterm_Report_Revised_v2.pdf`
+- DNABERT-2 official implementation repository: https://github.com/MAGICS-LAB/DNABERT_2
+- DNABERT-2 base checkpoint used for Phase 1: https://huggingface.co/zhihan1996/DNABERT-2-117M
+- Hugging Face dataset source used for the promoter benchmark:
+  - Dataset card: `leanmmlindsey/GUE`
+  - Phase 1 subset: `prom_core_all`
+
+Supporting documentation:
+
+- Hugging Face Transformers: https://huggingface.co/docs/transformers
+- Hugging Face Datasets: https://huggingface.co/docs/datasets
+- PEFT: https://huggingface.co/docs/peft
+
