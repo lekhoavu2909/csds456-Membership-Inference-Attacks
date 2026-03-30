@@ -1,0 +1,34 @@
+{
+  "runs": [
+    {
+      "dev_accuracy": 0.712,
+      "dev_mcc": 0.44497118656200824,
+      "rank": 8,
+      "run_dir": "runs/phase1/lora_r8",
+      "test_accuracy": 0.56312625250501,
+      "test_mcc": 0.1860796880482499,
+      "train_accuracy": 0.716,
+      "train_mcc": 0.4351912782792883
+    },
+    {
+      "dev_accuracy": 0.736,
+      "dev_mcc": 0.5162736133281943,
+      "rank": 16,
+      "run_dir": "runs/phase1/lora_r16",
+      "test_accuracy": 0.5671342685370742,
+      "test_mcc": 0.20160562717580538,
+      "train_accuracy": 0.7305,
+      "train_mcc": 0.48083303228435065
+    },
+    {
+      "dev_accuracy": 0.744,
+      "dev_mcc": 0.5088046744510305,
+      "rank": 32,
+      "run_dir": "runs/phase1/lora_r32",
+      "test_accuracy": 0.591182364729459,
+      "test_mcc": 0.23026346312533044,
+      "train_accuracy": 0.761,
+      "train_mcc": 0.5296192410065294
+    }
+  ]
+}

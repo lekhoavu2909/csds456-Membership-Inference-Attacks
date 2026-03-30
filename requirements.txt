@@ -1,0 +1,8 @@
+datasets>=2.20.0
+numpy>=1.26.0
+pandas>=2.2.0
+peft>=0.12.0
+scikit-learn>=1.4.0
+torch>=2.2.0
+transformers>=4.42.0
+einops

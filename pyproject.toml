@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dnabert2-phase1"
+version = "0.1.0"
+description = "Phase 1 DNABERT-2 LoRA fine-tuning baseline for genomic privacy experiments"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "datasets>=2.20.0",
+  "numpy>=1.26.0",
+  "pandas>=2.2.0",
+  "peft>=0.12.0",
+  "scikit-learn>=1.4.0",
+  "torch>=2.2.0",
+  "transformers>=4.42.0",
+]
+
+[project.scripts]
+dnabert2-phase1 = "dnabert2_phase1.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
