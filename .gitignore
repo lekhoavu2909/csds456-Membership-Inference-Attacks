@@ -14,3 +14,5 @@ artifacts/
 checkpoints/
 *.pyc
 runs/phase_1/
+*.out
+*.err
