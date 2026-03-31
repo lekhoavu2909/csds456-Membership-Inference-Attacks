@@ -1,0 +1,25 @@
+{
+  "per_split": {
+    "dev": {
+      "assigned_sequences": 5860,
+      "conflicting_labels": 3,
+      "input_rows": 5920,
+      "unique_sequences": 5914
+    },
+    "test": {
+      "assigned_sequences": 5866,
+      "conflicting_labels": 1,
+      "input_rows": 5920,
+      "unique_sequences": 5916
+    },
+    "train": {
+      "assigned_sequences": 47208,
+      "conflicting_labels": 40,
+      "input_rows": 47356,
+      "unique_sequences": 47208
+    }
+  },
+  "resolved_conflicts": 44,
+  "total_rows": 59196,
+  "unique_sequences": 58934
+}
