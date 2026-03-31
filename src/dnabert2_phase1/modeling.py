@@ -6,6 +6,7 @@ from typing import Iterable
 import torch
 from peft import LoraConfig, TaskType, get_peft_model
 from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer
+import transformers.modeling_utils as modeling_utils
 
 
 def resolve_model_source(model_name: str) -> str:
@@ -50,10 +51,17 @@ def load_sequence_classifier(
     config.cls_token_id = getattr(tokenizer, "cls_token_id", None)
     config.device = torch.device("cpu")
     previous_default_device = None
+    original_load_state_dict = modeling_utils.load_state_dict
+
+    def load_state_dict_without_weights_only(checkpoint_file, *args, **kwargs):
+        kwargs["weights_only"] = False
+        return original_load_state_dict(checkpoint_file, *args, **kwargs)
+
     try:
         if hasattr(torch, "get_default_device") and hasattr(torch, "set_default_device"):
             previous_default_device = torch.get_default_device()
             torch.set_default_device("cpu")
+        modeling_utils.load_state_dict = load_state_dict_without_weights_only
         model = AutoModelForSequenceClassification.from_pretrained(
             model_name,
             config=config,
@@ -62,6 +70,7 @@ def load_sequence_classifier(
             low_cpu_mem_usage=False,
         )
     finally:
+        modeling_utils.load_state_dict = original_load_state_dict
         if previous_default_device is not None:
             torch.set_default_device(previous_default_device)
     modules_to_save = infer_modules_to_save(model)
