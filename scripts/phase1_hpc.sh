@@ -11,7 +11,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+ROOT_DIR="${SLURM_SUBMIT_DIR:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
 
 DATA_DIR="${DATA_DIR:-${ROOT_DIR}/data/core_promoter_70bp}"
 RUNS_DIR="${RUNS_DIR:-${ROOT_DIR}/runs}"
