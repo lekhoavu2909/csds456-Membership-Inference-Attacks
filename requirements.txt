@@ -1,4 +1,4 @@
-datasets>=2.20.0
+datasets>=2.4.0
 numpy>=1.26.0
 pandas>=2.2.0
 peft>=0.12.0

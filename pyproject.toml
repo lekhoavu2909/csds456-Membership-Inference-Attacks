@@ -9,7 +9,7 @@ description = "Phase 1 DNABERT-2 LoRA fine-tuning baseline for genomic privacy e
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-  "datasets>=2.20.0",
+  "datasets>=2.4.0",
   "numpy>=1.26.0",
   "pandas>=2.2.0",
   "peft>=0.12.0",
