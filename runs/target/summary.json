@@ -1,0 +1,34 @@
+{
+  "runs": [
+    {
+      "dev_accuracy": 0.7731120894006096,
+      "dev_mcc": 0.5471231128799008,
+      "rank": 8,
+      "run_dir": "/Users/vule/Desktop/CSDS/csds456-Membership-Inference-Attacks/runs/target/lora_r8",
+      "test_accuracy": 0.7784360189573459,
+      "test_mcc": 0.5575673452938134,
+      "train_accuracy": 0.7846192829089066,
+      "train_mcc": 0.5699225745270153
+    },
+    {
+      "dev_accuracy": 0.7898747036911615,
+      "dev_mcc": 0.5800907403784304,
+      "rank": 16,
+      "run_dir": "/Users/vule/Desktop/CSDS/csds456-Membership-Inference-Attacks/runs/target/lora_r16",
+      "test_accuracy": 0.7985781990521327,
+      "test_mcc": 0.5977515214926036,
+      "train_accuracy": 0.8059039655390853,
+      "train_mcc": 0.6120411666935569
+    },
+    {
+      "dev_accuracy": 0.7956315611242804,
+      "dev_mcc": 0.591850779384997,
+      "rank": 32,
+      "run_dir": "/Users/vule/Desktop/CSDS/csds456-Membership-Inference-Attacks/runs/target/lora_r32",
+      "test_accuracy": 0.8026404874746107,
+      "test_mcc": 0.6058292702519427,
+      "train_accuracy": 0.8175598631698974,
+      "train_mcc": 0.6352708639685186
+    }
+  ]
+}
