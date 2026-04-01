@@ -9,11 +9,12 @@ import numpy as np
 import pandas as pd
 import torch
 from datasets import Dataset
+from torch.utils.data import DataLoader
 from transformers import DataCollatorWithPadding, Trainer, TrainingArguments, set_seed
 
 from .config import Phase1Config
 from .data import build_split_manifest, load_local_splits, split_summary
-from .metrics import ClassificationMetrics, compute_classification_metrics, trainer_compute_metrics, _ensure_array
+from .metrics import ClassificationMetrics, compute_classification_metrics, trainer_compute_metrics
 from .modeling import load_sequence_classifier, load_tokenizer
 
 
@@ -45,19 +46,38 @@ def _save_json(payload: dict[str, Any], path: Path) -> None:
 
 
 def export_predictions(
-    trainer: Trainer,
+    model: torch.nn.Module,
+    tokenizer,
     dataset: Dataset,
     frame: pd.DataFrame,
     out_path: Path,
+    *,
+    batch_size: int = 8,
+    device: torch.device | str | None = None,
 ) -> ClassificationMetrics:
-    output = trainer.predict(dataset)
-    logits = _ensure_array(output.predictions)
-    if logits.ndim == 3:
-        logits = logits[:, 0, :]
-    logits_t = torch.tensor(logits)
-    probs = torch.softmax(logits_t, dim=-1).cpu().numpy()
-    labels = np.asarray(output.label_ids)
-    metrics = compute_classification_metrics(output.predictions, labels, loss=float(output.metrics.get("test_loss", np.nan)) if output.metrics else None)
+    model_device = torch.device(device) if device is not None else next(model.parameters()).device
+    model = model.to(model_device)
+    model.eval()
+
+    collator = DataCollatorWithPadding(tokenizer=tokenizer)
+    loader = DataLoader(dataset, batch_size=batch_size, collate_fn=collator)
+
+    logits_chunks: list[np.ndarray] = []
+    labels_chunks: list[np.ndarray] = []
+    with torch.no_grad():
+        for batch in loader:
+            labels = batch.pop("labels").detach().cpu().numpy()
+            batch = {key: value.to(model_device) for key, value in batch.items()}
+            outputs = model(**batch)
+            logits = outputs.logits if hasattr(outputs, "logits") else outputs[0]
+            logits_chunks.append(logits.detach().cpu().numpy())
+            labels_chunks.append(labels)
+
+    logits = np.concatenate(logits_chunks, axis=0) if logits_chunks else np.empty((0, 2))
+    labels = np.concatenate(labels_chunks, axis=0) if labels_chunks else np.empty((0,), dtype=int)
+    probs = torch.softmax(torch.tensor(logits), dim=-1).cpu().numpy()
+    metrics = compute_classification_metrics(logits, labels)
+
     export = frame.reset_index(drop=True).copy()
     export["label"] = labels
     export["predicted_label"] = probs.argmax(axis=-1)
@@ -155,8 +175,26 @@ def run_phase1(config: Phase1Config) -> list[dict[str, Any]]:
         tokenizer.save_pretrained(rank_dir / "best_model")
 
         dev_metrics = trainer.evaluate(dev_ds)
-        train_metrics = export_predictions(trainer, train_ds, frames["train"], rank_dir / "predictions" / "train_predictions.csv")
-        test_metrics = export_predictions(trainer, test_ds, frames["test"], rank_dir / "predictions" / "test_predictions.csv")
+        prediction_batch_size = max(1, min(config.per_device_eval_batch_size, 4))
+        model_device = next(trainer.model.parameters()).device
+        train_metrics = export_predictions(
+            trainer.model,
+            tokenizer,
+            train_ds,
+            frames["train"],
+            rank_dir / "predictions" / "train_predictions.csv",
+            batch_size=prediction_batch_size,
+            device=model_device,
+        )
+        test_metrics = export_predictions(
+            trainer.model,
+            tokenizer,
+            test_ds,
+            frames["test"],
+            rank_dir / "predictions" / "test_predictions.csv",
+            batch_size=prediction_batch_size,
+            device=model_device,
+        )
 
         trainer_state_path = rank_dir / "trainer_state.json"
         if trainer.state is not None:

@@ -46,10 +46,7 @@ You can also export data from a Hugging Face dataset using the included adapter 
 Example:
 
 ```bash
-python -m dnabert2_phase1.cli train \
-  --data-dir data/core_promoter_70bp \
-  --output-dir runs/phase1_baseline \
-  --lora-ranks 8 16 32
+bash scripts/train_phase1.sh data/core_promoter_70bp runs/phase1_baseline
 ```
 
 This will:
@@ -57,6 +54,20 @@ This will:
 - train one run per LoRA rank
 - save metrics and predictions under each run directory
 - keep the best checkpoint according to validation loss
+
+## Prediction export
+
+Example:
+
+```bash
+bash scripts/export_phase1_predictions.sh runs/phase1_baseline data/core_promoter_70bp 8
+```
+
+This will:
+
+- reload the saved `lora_r8/best_model` checkpoint
+- export train/dev/test predictions into `prediction_exports/`
+- use a smaller inference batch size to avoid memory spikes on local hardware
 
 ## Hugging Face export
 

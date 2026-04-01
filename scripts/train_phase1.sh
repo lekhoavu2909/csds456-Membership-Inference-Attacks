@@ -14,10 +14,7 @@ if [[ ! -x "${PYTHON_BIN}" ]]; then
   PYTHON_BIN="$(command -v python3)"
 fi
 
-RUN_DIR="${1:-${ROOT_DIR}/runs/phase1_local}"
-DATA_DIR="${2:-${ROOT_DIR}/data/core_promoter_70bp}"
-RANK="${3:-8}"
-BATCH_SIZE="${EXPORT_BATCH_SIZE:-4}"
-DEVICE="${EXPORT_DEVICE:-cpu}"
+DATA_DIR="${1:-${ROOT_DIR}/data/core_promoter_70bp}"
+OUTPUT_DIR="${2:-${ROOT_DIR}/runs/phase1}"
 
-"${PYTHON_BIN}" -m dnabert2_phase1.cli export-predictions   --run-dir "${RUN_DIR}"   --data-dir "${DATA_DIR}"   --rank "${RANK}"   --batch-size "${BATCH_SIZE}"   --device "${DEVICE}"
+"${PYTHON_BIN}" -m dnabert2_phase1.cli train   --data-dir "${DATA_DIR}"   --output-dir "${OUTPUT_DIR}"   --lora-ranks 8 16 32
