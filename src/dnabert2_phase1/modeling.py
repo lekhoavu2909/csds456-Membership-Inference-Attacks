@@ -8,6 +8,29 @@ from peft import LoraConfig, TaskType, get_peft_model
 from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer
 import transformers.modeling_utils as modeling_utils
 
+from peft import PeftModel
+
+def load_trained_sequence_classifier(
+    adapter_dir: str,
+    *,
+    num_labels: int,
+):
+    adapter_dir = Path(adapter_dir)
+    base_model_name = resolve_model_source("zhihan1996/DNABERT-2-117M")
+    tokenizer = load_tokenizer(base_model_name)
+    config = AutoConfig.from_pretrained(base_model_name, trust_remote_code=True)
+    config.num_labels = num_labels
+    config.pad_token_id = tokenizer.pad_token_id
+
+    model = AutoModelForSequenceClassification.from_pretrained(
+        base_model_name,
+        config=config,
+        trust_remote_code=True,
+        ignore_mismatched_sizes=True,
+        low_cpu_mem_usage=False,
+    )
+    model = PeftModel.from_pretrained(model, str(adapter_dir))
+    return model
 
 def resolve_model_source(model_name: str) -> str:
     local_dir = Path("models/DNABERT-2-117M")

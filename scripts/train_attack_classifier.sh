@@ -14,7 +14,12 @@ if [[ ! -x "${PYTHON_BIN}" ]]; then
   PYTHON_BIN="$(command -v python3)"
 fi
 
-DATA_DIR="${1:-${ROOT_DIR}/data/core_promoter_70bp_shadow1}"
-OUTPUT_DIR="${2:-${ROOT_DIR}/runs/shadow1}"
-
-"${PYTHON_BIN}" -m dnabert2_phase1.cli train   --data-dir "${DATA_DIR}"   --output-dir "${OUTPUT_DIR}"   --lora-ranks 8 16 32
+"${PYTHON_BIN}" src/dnabert2_phase2/attack_classifier.py \
+  --shadow-dirs \
+    "${ROOT_DIR}/runs/shadow1" \
+    "${ROOT_DIR}/runs/shadow2" \
+    "${ROOT_DIR}/runs/shadow3" \
+    "${ROOT_DIR}/runs/shadow4" \
+  --target-dir "${ROOT_DIR}/runs/target" \
+  --evaluate-dir "${ROOT_DIR}/runs/target" \
+  --output-path "${ROOT_DIR}/runs/attack_classifier/attack_clf.joblib"

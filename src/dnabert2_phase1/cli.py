@@ -6,7 +6,7 @@ from .config import Phase1Config
 from .data import export_hf_dataset_to_csv, load_local_splits
 from .runner import _save_json, export_predictions, run_phase1, tokenize_frame
 from .modeling import load_sequence_classifier, load_tokenizer
-
+from .modeling import load_trained_sequence_classifier, load_tokenizer
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="dnabert2-phase1")
@@ -113,14 +113,11 @@ def main(argv: list[str] | None = None) -> int:
         rank_dir = run_dir / f"lora_r{args.rank}"
         model_dir = rank_dir / "best_model"
         tokenizer = load_tokenizer(str(model_dir))
-        model = load_sequence_classifier(
+
+
+        model = load_trained_sequence_classifier(
             str(model_dir),
             num_labels=2,
-            lora_r=args.rank,
-            lora_alpha=config.lora_alpha_multiplier * args.rank,
-            lora_dropout=config.lora_dropout,
-            target_modules=config.target_modules,
-            modules_to_save=config.modules_to_save,
         )
         train_ds = tokenize_frame(frames["train"], tokenizer, config.max_length)
         dev_ds = tokenize_frame(frames["dev"], tokenizer, config.max_length)

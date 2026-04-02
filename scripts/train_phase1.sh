@@ -14,7 +14,7 @@ if [[ ! -x "${PYTHON_BIN}" ]]; then
   PYTHON_BIN="$(command -v python3)"
 fi
 
-DATA_DIR="${1:-${ROOT_DIR}/data/core_promoter_70pb_target}"
+DATA_DIR="${1:-${ROOT_DIR}/data/core_promoter_70bp_target}"
 OUTPUT_DIR="${2:-${ROOT_DIR}/runs/target}"
 
 "${PYTHON_BIN}" -m dnabert2_phase1.cli train   --data-dir "${DATA_DIR}"   --output-dir "${OUTPUT_DIR}"   --lora-ranks 8 16 32

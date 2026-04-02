@@ -1,6 +1,6 @@
 {
   "base_model_name": "zhihan1996/DNABERT-2-117M",
-  "data_dir": "/Users/vule/Desktop/CSDS/csds456-Membership-Inference-Attacks/data/core_promoter_70pb_target",
+  "data_dir": "/Users/vule/Desktop/CSDS/csds456-Membership-Inference-Attacks/data/core_promoter_70bp_target",
   "dev_csv": "dev.csv",
   "expected_sequence_length": 70,
   "fp16": true,

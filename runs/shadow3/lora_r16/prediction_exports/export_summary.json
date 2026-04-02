@@ -1,0 +1,12 @@
+{
+  "batch_size": 4,
+  "data_dir": "data/core_promoter_70bp_evaluate",
+  "device": "cpu",
+  "exports": [
+    "train_predictions.csv",
+    "dev_predictions.csv",
+    "test_predictions.csv"
+  ],
+  "rank": 16,
+  "run_dir": "runs/shadow3"
+}

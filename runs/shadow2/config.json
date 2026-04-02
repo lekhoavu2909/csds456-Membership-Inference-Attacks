@@ -1,6 +1,6 @@
 {
   "base_model_name": "zhihan1996/DNABERT-2-117M",
-  "data_dir": "data/core_promoter_70pb_shadow2",
+  "data_dir": "data/core_promoter_7bp_shadow2",
   "dev_csv": "dev.csv",
   "expected_sequence_length": 70,
   "fp16": true,
