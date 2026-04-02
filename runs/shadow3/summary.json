@@ -1,0 +1,34 @@
+{
+  "runs": [
+    {
+      "dev_accuracy": 0.7782292195700017,
+      "dev_mcc": 0.5587145138509222,
+      "rank": 8,
+      "run_dir": "runs/shadow3/lora_r8",
+      "test_accuracy": 0.7828445499237159,
+      "test_mcc": 0.567213926736838,
+      "train_accuracy": 0.7932826362484157,
+      "train_mcc": 0.5869419952112055
+    },
+    {
+      "dev_accuracy": 0.7855087184696123,
+      "dev_mcc": 0.5723484811627307,
+      "rank": 16,
+      "run_dir": "runs/shadow3/lora_r16",
+      "test_accuracy": 0.79657569079505,
+      "test_mcc": 0.5946462311216109,
+      "train_accuracy": 0.8114068441064639,
+      "train_mcc": 0.6231108232688362
+    },
+    {
+      "dev_accuracy": 0.7873709158625359,
+      "dev_mcc": 0.5763759594959776,
+      "rank": 32,
+      "run_dir": "runs/shadow3/lora_r32",
+      "test_accuracy": 0.7962366502797085,
+      "test_mcc": 0.5941435943435239,
+      "train_accuracy": 0.8086185044359949,
+      "train_mcc": 0.6176291613613769
+    }
+  ]
+}

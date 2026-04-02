@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "max_length": 70,
+    "mean_length": 70.0,
+    "min_length": 70,
+    "negatives": 2937,
+    "positives": 2968,
+    "rows": 5905
+  },
+  "test": {
+    "max_length": 70,
+    "mean_length": 70.0,
+    "min_length": 70,
+    "negatives": 2944,
+    "positives": 2955,
+    "rows": 5899
+  },
+  "train": {
+    "max_length": 70,
+    "mean_length": 70.0,
+    "min_length": 70,
+    "negatives": 3905,
+    "positives": 3983,
+    "rows": 7888
+  }
+}
