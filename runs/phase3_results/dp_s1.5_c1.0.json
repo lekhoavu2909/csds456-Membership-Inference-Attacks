@@ -1,0 +1,15 @@
+{
+  "run": "dp_s1.5_c1.0",
+  "rank": 16,
+  "train_accuracy": 0.5357912073989611,
+  "train_mcc": 0.09788485958760054,
+  "test_accuracy": 0.5314827352742044,
+  "test_mcc": 0.09089101998611437,
+  "train_test_gap": 0.0043,
+  "epsilon": 0.2454358421568734,
+  "noise_multiplier": 1.5,
+  "max_grad_norm": 1.0,
+  "attack_accuracy": 0.5,
+  "attack_auc_roc": 0.5,
+  "attack_tpr_at_fpr_0.1pct": 0.1617
+}

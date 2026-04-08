@@ -1,0 +1,15 @@
+{
+  "batch_size": 8,
+  "data_dir": "/Users/tahirshah/Documents/GitHub/csds456-Membership-Inference-Attacks/data/core_promoter_70bp_target",
+  "defense": "dp-sgd",
+  "delta": 0.00012669453946534905,
+  "epochs": 10,
+  "epsilon": 0.2454358421568734,
+  "learning_rate": 2e-05,
+  "lora_rank": 16,
+  "max_grad_norm": 0.5,
+  "noise_multiplier": 1.5,
+  "output_dir": "/Users/tahirshah/Documents/GitHub/csds456-Membership-Inference-Attacks/runs/phase3_dp/dp_s1.5_c0.5",
+  "phase": 3,
+  "seed": 42
+}

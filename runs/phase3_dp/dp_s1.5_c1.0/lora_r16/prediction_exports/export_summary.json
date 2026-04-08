@@ -1,0 +1,12 @@
+{
+  "batch_size": 4,
+  "data_dir": "/Users/tahirshah/Documents/GitHub/csds456-Membership-Inference-Attacks/data/core_promoter_70bp_target",
+  "device": "cpu",
+  "exports": [
+    "train_predictions.csv",
+    "dev_predictions.csv",
+    "test_predictions.csv"
+  ],
+  "rank": 16,
+  "run_dir": "/Users/tahirshah/Documents/GitHub/csds456-Membership-Inference-Attacks/runs/phase3_dp/dp_s1.5_c1.0"
+}

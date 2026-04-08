@@ -16,6 +16,8 @@ def load_trained_sequence_classifier(
     num_labels: int,
 ):
     adapter_dir = Path(adapter_dir)
+    is_peft = (adapter_dir / "adapter_config.json").exists()
+
     base_model_name = resolve_model_source("zhihan1996/DNABERT-2-117M")
     tokenizer = load_tokenizer(base_model_name)
     config = AutoConfig.from_pretrained(base_model_name, trust_remote_code=True)
@@ -29,7 +31,15 @@ def load_trained_sequence_classifier(
         ignore_mismatched_sizes=True,
         low_cpu_mem_usage=False,
     )
-    model = PeftModel.from_pretrained(model, str(adapter_dir))
+
+    if is_peft:
+        model = PeftModel.from_pretrained(model, str(adapter_dir))
+    else:
+        # Plain HuggingFace model (e.g. DP-SGD trained without LoRA)
+        # Load saved weights into the base model (custom code lives in base dir)
+        import safetensors.torch
+        state_dict = safetensors.torch.load_file(str(adapter_dir / "model.safetensors"))
+        model.load_state_dict(state_dict, strict=False)
     return model
 
 def resolve_model_source(model_name: str) -> str:
@@ -96,7 +106,8 @@ def load_sequence_classifier(
         modeling_utils.load_state_dict = original_load_state_dict
         if previous_default_device is not None:
             torch.set_default_device(previous_default_device)
-    modules_to_save = infer_modules_to_save(model)
+    if modules_to_save is None:
+        modules_to_save = infer_modules_to_save(model)
     lora_config = LoraConfig(
         r=lora_r,
         lora_alpha=lora_alpha if lora_alpha is not None else 2 * lora_r,

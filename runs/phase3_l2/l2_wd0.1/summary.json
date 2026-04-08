@@ -1,0 +1,14 @@
+{
+  "runs": [
+    {
+      "dev_accuracy": 0.7834405689129699,
+      "dev_mcc": 0.5668564310385847,
+      "rank": 16,
+      "run_dir": "/Users/tahirshah/Documents/GitHub/csds456-Membership-Inference-Attacks/runs/phase3_l2/l2_wd0.1/lora_r16",
+      "test_accuracy": 0.7955314827352742,
+      "test_mcc": 0.5910714851884235,
+      "train_accuracy": 0.8009628784999366,
+      "train_mcc": 0.6019138357762662
+    }
+  ]
+}

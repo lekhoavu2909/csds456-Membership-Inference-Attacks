@@ -1,0 +1,12 @@
+{
+  "run": "l2_wd0.01",
+  "rank": 16,
+  "train_accuracy": 0.8005827948815406,
+  "train_mcc": 0.6011831711254335,
+  "test_accuracy": 0.7924847664184157,
+  "test_mcc": 0.5849894290042221,
+  "train_test_gap": 0.0081,
+  "attack_accuracy": 0.9444,
+  "attack_auc_roc": 0.9747,
+  "attack_tpr_at_fpr_0.1pct": 0.9301
+}

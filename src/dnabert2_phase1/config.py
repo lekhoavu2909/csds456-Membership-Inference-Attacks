@@ -52,4 +52,6 @@ class Phase1Config:
     @classmethod
     def load(cls, path: str | Path) -> "Phase1Config":
         payload = json.loads(Path(path).read_text())
+        valid_fields = {f.name for f in __import__("dataclasses").fields(cls)}
+        payload = {k: v for k, v in payload.items() if k in valid_fields}
         return cls(**payload)
